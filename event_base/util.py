@@ -14,8 +14,3 @@ def create_event_list(chat_id):
             for entry in event.prev_event_ids:
                 events[event.event_id]['prev'].append(entry)
     return events
-"""
-if __name__ == '__main__':
-    event_list = create_event_list()
-    test = event_list[0]
-    getattr()"""
