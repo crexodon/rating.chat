@@ -5,3 +5,5 @@ Für mehr Info über das Spiel siehe unsere GitHub Pages Seite: [rating.chat](ht
 
 Zum Installieren wird Python3 sowie das [Python Telegram Bot](https://github.com/python-telegram-bot/python-telegram-bot) Framework benötigt:  
 `$ pip install python-telegram-bot --upgrade`
+
+Add the bot to your Telegram by adding [@ratingchat_bot](http://telegram.me/ratingchat_bot)
