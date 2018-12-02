@@ -22,7 +22,9 @@ class EventBase(ABC):
         button_list = []
         for e in self.buttons:
             next_event_id = e['next_event_id']
-            decision_id = e['decision_id']
+            decision_id = e.get('decision_id')
+            if decision_id is None:
+                decision_id = ''
             event_list = create_event_list(self.chat_id)
             if event_list[self.event_id]['class'].is_available(profile=self.current_profile):
                 next_event_id = '{};{};{}'.format(next_event_id, decision_id, self.chat_id)
@@ -57,3 +59,7 @@ class EventBase(ABC):
     def is_available(profile) -> bool:
         """This method check if all prerequisite for this event are meet"""
         return True
+
+    @staticmethod
+    def react(profile, decision_id):
+        return profile

@@ -11,12 +11,6 @@ class StartDate(EventBase):
                                   {'text': 'Netflix und Chill!', 'next_event_id': 'start_transport'},
                                   {'text': 'Ein kleines Barkonzert steht an', 'next_event_id': 'start_transport'}])
 
-    def set_profile_attribute(self, attribute, value):
-        pass
-
-    def set_account(self, account: str):
-        pass
-
     @staticmethod
     def is_available(profile) -> bool:
         pass
