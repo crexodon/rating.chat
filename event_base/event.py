@@ -24,8 +24,9 @@ class EventBase(ABC):
             next_event_id = e['next_event_id']
             event_list = create_event_list(self.chat_id)
             if event_list[self.event_id]['class'].is_available(profile=self.current_profile):
-                next_event_id = next_event_id+';'+str(self.chat_id)
+                next_event_id = next_event_id + ';' + str(self.chat_id)
                 button_list.append(InlineKeyboardButton(e['text'], callback_data=next_event_id))
+
         return button_list, self.message_text
 
     def _save_profile(self):
