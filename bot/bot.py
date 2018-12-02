@@ -25,23 +25,17 @@ def start(bot, update):
     button_list, text = event_object.create_virtual_keyboard()
 
     reply_markup = InlineKeyboardMarkup(build_menu(button_list, n_cols=3))
-    bot.send_message(chat_id=update.message.chat.id, text=text, reply_markup=reply_markup)
+    bot.send_message(chat_id=chat_id, text=text, reply_markup=reply_markup)
 
 
-def button(bot, update):
-    query = update.callback_query
-    last_event_data = str(query.data)
-    split_string = last_event_data.split(";", 1)
-    event_id = split_string[0]
-    chat_id = split_string[1]
+def print_profile(bot, update):
+    chat_id = update.message.chat.id
     profile = Profile.load(chat_id)
-    profile['progress']['event_id'] = event_id
-    Profile.save(profile, chat_id)
 
-    profile = Profile.load(chat_id)
+    print(profile)
+
     event_id = profile['progress']['event_id']
-    event_class = profile['event_list']
-    event_object = event_class[event_id]['class'](chat_id)
+    event_object = profile['event_list'][event_id]['class'](chat_id)
 
     button_list, text = event_object.create_virtual_keyboard()
 
@@ -49,9 +43,40 @@ def button(bot, update):
     bot.send_message(chat_id=chat_id, text=text, reply_markup=reply_markup)
 
 
-def error(bot, update, error):
+def button(bot, update):
+    query = update.callback_query
+    last_event_data = str(query.data)
+
+    print(last_event_data)
+    print(last_event_data.split(";"))
+    event_id, decision_id, chat_id = last_event_data.split(";")
+
+    # load profile
+    profile = Profile.load(chat_id)
+
+    # react on decision
+    previous_event_id = profile['progress']['event_id']
+    event_class = profile['event_list']
+    event_object = event_class[previous_event_id]['class'](chat_id)
+    profile = event_object.react(profile, decision_id)
+    profile['progress']['event_id'] = event_id
+
+    # create next event
+    event_id = profile['progress']['event_id']
+    event_object = event_class[event_id]['class'](chat_id)
+
+    # save progress
+    Profile.save(profile, chat_id)
+
+    button_list, text = event_object.create_virtual_keyboard()
+
+    reply_markup = InlineKeyboardMarkup(build_menu(button_list, n_cols=3))
+    bot.send_message(chat_id=chat_id, text=text, reply_markup=reply_markup)
+
+
+def error(bot, update, error_message):
     """Log Errors caused by Updates"""
-    logger.warning('Update "%s" caused error "%s"', update, error)
+    logger.warning('Update "%s" caused error "%s"', update, error_message)
 
 
 def build_menu(buttons,
@@ -67,9 +92,11 @@ def build_menu(buttons,
 
 
 def main():
-    updater = Updater(token='541471711:AAFC46JebZN5qQO_znvjz6QRXIaCTcrNp0k')
+    updater = Updater(token='683702767:AAEK7xW4HTckEj2BurhayfvW2dRvJiwoqfE')
 
     updater.dispatcher.add_handler(CommandHandler('start', start))
+    updater.dispatcher.add_handler(CommandHandler('profile', print_profile))
+
     updater.dispatcher.add_handler(CallbackQueryHandler(button))
     updater.dispatcher.add_error_handler(error)
 
