@@ -1,4 +1,4 @@
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup
+from telegram import InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, CallbackQueryHandler
 import logging
 from profile.profile import Profile
@@ -47,19 +47,6 @@ def button(bot, update):
 
     reply_markup = InlineKeyboardMarkup(build_menu(button_list, n_cols=3))
     bot.send_message(chat_id=chat_id, text=text, reply_markup=reply_markup)
-
-
-def next_message(bot, update):
-    chat_id = update.message.chat.id
-    profile = Profile.load(chat_id)
-    event_id = profile['progress']['event_id']
-    event_class = profile['event_list']
-    event_object = event_class[event_id]['class'](chat_id)
-
-    button_list, text = event_object.create_virtual_keyboard()
-
-    reply_markup = InlineKeyboardMarkup(build_menu(button_list, n_cols=3))
-    bot.send_message(chat_id=update.message.chat.id, text=text, reply_markup=reply_markup)
 
 
 def error(bot, update, error):
