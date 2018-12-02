@@ -8,7 +8,7 @@ class CreationSex(EventBase):
 
                          message_text="hello", buttons=[{'text': 'Männlich', 'next_event_id': 'creation_age', 'decision_id': 1},
                                                         {'text': 'Weiblich', 'next_event_id': 'creation_age','decision_id': 2},
-                                                        {'text': 'divers', 'next_event_id': 'creation_age', 'decision_id': 3}}])
+                                                        {'text': 'divers', 'next_event_id': 'creation_age', 'decision_id': 3}])
 
 
     @staticmethod

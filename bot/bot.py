@@ -92,7 +92,7 @@ def build_menu(buttons,
 
 
 def main():
-    updater = Updater(token='541471711:AAFC46JebZN5qQO_znvjz6QRXIaCTcrNp0k')
+    updater = Updater(token='683702767:AAEK7xW4HTckEj2BurhayfvW2dRvJiwoqfE')
 
     updater.dispatcher.add_handler(CommandHandler('start', start))
     updater.dispatcher.add_handler(CommandHandler('profile', print_profile))
