@@ -1,3 +1,7 @@
+# import telegram
+# bot.py = telegram.Bot()
+# print(bot.py.get_me())
+
 from telegram.ext import Updater
 from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler, Filters
@@ -6,24 +10,18 @@ from telegram.ext import InlineQueryHandler
 
 import logging
 
-from profile import Profile
-
 
 def start(bot, update):
     print(update.message)
     bot.send_message(chat_id=update.message.chat_id, text="I'm a bot.py, please talk to me!")
 
 
-def start_game(bot, update):
-    profile = Profile.create(chat_id=update.message.chat_id)
-    print(update.message)
-    bot.send_message(chat_id=update.message.chat_id, text='New game started')
-    Profile.save(profile=profile, chat_id=update.message.chat_id)
+def caps(bot, update, args):
+    text_caps = ' '.join(args).upper()
+    bot.send_message(chat_id=update.message.chat_id, text=text_caps)
 
 
 def echo(bot, update):
-    profile = Profile.load(chat_id=update.message.chat_id)
-    Profile.save(profile=profile, chat_id=update.message.chat_id)
     bot.send_message(chat_id=update.message.chat_id, text=update.message.text)
 
 
@@ -43,7 +41,6 @@ def inline_caps(bot, update):
 
 
 def main():
-
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                         level=logging.INFO)
 
@@ -60,7 +57,7 @@ def main():
     echo_handler = MessageHandler(Filters.text, echo)
     dispatcher.add_handler(echo_handler)
 
-    caps_handler = CommandHandler('new_game', start_game)
+    caps_handler = CommandHandler('caps', caps, pass_args=True)
     dispatcher.add_handler(caps_handler)
 
     inline_caps_handler = InlineQueryHandler(inline_caps)
