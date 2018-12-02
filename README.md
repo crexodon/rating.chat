@@ -7,4 +7,5 @@ Das alles passiert hinter den Kullissen und ohne, dass es von dem meisten Mensch
 Daher haben wir uns als Ziel genommen, ein kleines Spiel per Telegram Bot in diesem Hackathon zu entwickeln.
 
 ## Wie funktioniert das Spiel?
-_to be determined_
+Der Bot fragt dich in einem hypotetischen Szenario über diverse Themen. Dabei sammelt er deine Entscheidung und verändert so den Spielverlauf und dein Ergebnis am Ende.  
+Füge den Bot hinzu indem du [@ratingchat_bot](http://telegram.me/ratingchat_bot) in Telegram anschreibst und mit `/start` das Spiel beginnst.
