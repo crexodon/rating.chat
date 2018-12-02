@@ -22,9 +22,10 @@ class EventBase(ABC):
         button_list = []
         for e in self.buttons:
             next_event_id = e['next_event_id']
+            decision_id = e['decision_id']
             event_list = create_event_list(self.chat_id)
             if event_list[self.event_id]['class'].is_available(profile=self.current_profile):
-                next_event_id = next_event_id + ';' + str(self.chat_id)
+                next_event_id = '{};{};{}'.format(next_event_id, decision_id, self.chat_id)
                 button_list.append(InlineKeyboardButton(e['text'], callback_data=next_event_id))
 
         return button_list, self.message_text
@@ -51,23 +52,8 @@ class EventBase(ABC):
             current_accounts[account] = False
         self.current_profile['account'] = current_accounts
 
-
-
     @staticmethod
     @abstractmethod
     def is_available(profile) -> bool:
         """This method check if all prerequisite for this event are meet"""
         return True
-
-
-
-
-
-'''
-def search_event_list(event_id: str, event_list) -> list[{str: EventBase}]:
-    event = event_list.get(event_id)
-    if event is not None:
-        return event
-    else:
-        None
-'''
