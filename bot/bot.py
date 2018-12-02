@@ -23,7 +23,7 @@ def start(bot, update):
 
     reply_markup = ReplyKeyboardMarkup(custom_keyboard, )
     bot.send_message(chat_id=update.message.chat.id, text='go on',
-                    reply_markup = reply_markup)
+                    reply_markup=reply_markup)
 
 def button(bot, update):
 
@@ -34,8 +34,7 @@ def button(bot, update):
     chat_id = split_string[1]
     profile = Profile.load(chat_id)
     profile['progress']['event_id'] = event_id
-    Profile.save(profile,chat_id)
-
+    Profile.save(profile, chat_id)
 
 
 def next(bot, update):
@@ -50,7 +49,6 @@ def next(bot, update):
 
     reply_markup = InlineKeyboardMarkup(build_menu(button_list, n_cols=3))
     bot.send_message(chat_id=update.message.chat.id, text=text, reply_markup=reply_markup)
-
 
 
 def error(bot, update, error):
@@ -81,7 +79,6 @@ def main():
     updater.start_polling()
 
     updater.idle()
-
 
 main()
     

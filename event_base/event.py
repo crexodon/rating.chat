@@ -26,7 +26,7 @@ class EventBase(ABC):
             if event_list[self.event_id]['class'].is_available(profile=self.current_profile):
                 next_event_id = next_event_id+';'+str(self.chat_id)
                 button_list.append(InlineKeyboardButton(e['text'], callback_data=next_event_id))
-                return button_list, self.message_text
+        return button_list, self.message_text
 
     def _save_profile(self):
         self.current_profile['parent']['profile'] = self._get_profile()
@@ -39,12 +39,18 @@ class EventBase(ABC):
         """searches all events for next events"""
         pass
 
+    @abstractmethod
+    def set_profile_attribute(self, attribute, value):
+        self.current_profile[attribute] = value
+
+    @abstractmethod
     def set_account(self, account: str):
         current_accounts = self.current_profile['account']
         if account in current_accounts.keys():
             current_accounts[account] = True
         else:
             current_accounts[account] = False
+        self.current_profile['account'] = current_accounts
 
 
 
