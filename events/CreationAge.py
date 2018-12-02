@@ -9,6 +9,3 @@ class CreationAge(EventBase):
 
     def is_available(profile):
         return True
-
-    def test(self):
-        print("hey")

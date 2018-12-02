@@ -11,3 +11,4 @@ class CreationUserName(EventBase):
 
     def is_available(profile):
         return True
+
