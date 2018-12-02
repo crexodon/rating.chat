@@ -10,7 +10,7 @@ class CreationAge(EventBase):
         event_id = "creation_age"
         super().__init__(chat_id=chat_id, prev_event_ids=["creation_user_name"], event_id=event_id,
                          buttons=self.buttons,
-                         message_text="hello")
+                         message_text="Wähle dein Alter")
 
     @staticmethod
     def is_available(profile):
